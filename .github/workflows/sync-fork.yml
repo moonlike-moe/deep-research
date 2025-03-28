@@ -1,0 +1,21 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天凌晨 0 点运行
+
+jobs:
+  sync-fork:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Sync fork
+      uses: Codertocat/github-actions-sync-fork@v1
+      with:
+        upstream_repo: u14app/deep-research  # 上游仓库的完整路径
+        upstream_branch: main  # 上游仓库的分支
+        local_branch: main  # 你的 fork 的分支
+        github_token: ${{ secrets.GITHUB_TOKEN }}
